@@ -1,14 +1,18 @@
 # If you come from bash you might have to change your $PATH.
-export PATH=$HOME/bin:/usr/local/bin:/Users/admin/apache-maven-3.6.2/bin:$PATH
+export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/Users/admin/.oh-my-zsh"
+export ZSH="/Users/andrew-antolino/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="hyperzsh"
+#ZSH_THEME="hyperzsh"
+ZSH_THEME="spaceship"
+
+# Edit path elements
+SPACESHIP_AWS_SHOW=false
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -55,7 +59,7 @@ ZSH_THEME="hyperzsh"
 # HIST_STAMPS="mm/dd/yyyy"
 
 # Would you like to use another custom folder than $ZSH/custom?
-# ZSH_CUSTOM=/path/to/new-custom-folder
+ZSH_CUSTOM=/Users/andrew-antolino/.oh-my-zsh/custom
 
 # Which plugins would you like to load?
 # Standard plugins can be found in ~/.oh-my-zsh/plugins/*
@@ -64,7 +68,6 @@ ZSH_THEME="hyperzsh"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
   git
-  zsh-syntax-highlighting
   node
   npm
   kubectl
@@ -97,11 +100,62 @@ source $ZSH/oh-my-zsh.sh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
 #
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
+# Aliases
 alias py="python3"
 alias k="kubectl"
-alias kcd="kubectl config set-context $(kubectl config current-context) --namespace "
+# alias kcd="kubectl config set-context $(kubectl config current-context) --namespace "
 alias kc="kubectx"
 alias kns="kubens"
+alias ll="ls -l"
+alias la="ls -la"
+alias aws-login="aws-mfa \
+--duration 28800 \
+--device arn:aws:iam::244548702244:mfa/andrew-antolino@pluralsight.com \
+--profile 471783780157_AdminPermissionSet"
+alias aws-sso=~/aws-sso-credentials/awssso
+
+source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+eval "$(direnv hook zsh)"
+
+. $HOME/.asdf/asdf.sh
+
+. $HOME/.asdf/completions/asdf.bash
+
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+PATH=~/.acg/bin/:$PATH
+PATH=~/.local/bin/:$PATH
+
+export CERTIFICATE_BUNDLE=$HOME/Downloads/zscaler_root_ca_bundle.pem
+export REQUESTS_CA_BUNDLE=$CERTIFICATE_BUNDLE
+export CURL_CA_BUNDLE=$CERTIFICATE_BUNDLE
+export NODE_EXTRA_CA_CERTS=$CERTIFICATE_BUNDLE
+export AWS_CA_BUNDLE=$CERTIFICATE_BUNDLE
+export SSL_CERT_FILE=$CERTIFICATE_BUNDLE
+
+## Use AWS SSO to create daily credentials for shell sessions
+sso () {
+  SSO_TOOL_PATH=~/aws-sso-credentials/awssso
+  if [ "$1" = "login" ]; then
+    command $SSO_TOOL_PATH --all --login
+  else
+    command $SSO_TOOL_PATH --profile $1 --use-default
+    export AWS_PROFILE=$1
+    export AWS_DEFAULT_PROFILE=$1
+  fi
+}
+
+# Global AWS Config
+export AWS_REGION=us-east-1
+export AWS_DEFAULT_REGION=us-east-1
+
+# tabtab source for serverless package
+# uninstall by removing these lines or running `tabtab uninstall serverless`
+[[ -f /Users/andrew-antolino/git/school/ui-fragments/study-plan-ui/node_modules/tabtab/.completions/serverless.zsh ]] && . /Users/andrew-antolino/git/school/ui-fragments/study-plan-ui/node_modules/tabtab/.completions/serverless.zsh
+# tabtab source for sls package
+# uninstall by removing these lines or running `tabtab uninstall sls`
+[[ -f /Users/andrew-antolino/git/school/ui-fragments/study-plan-ui/node_modules/tabtab/.completions/sls.zsh ]] && . /Users/andrew-antolino/git/school/ui-fragments/study-plan-ui/node_modules/tabtab/.completions/sls.zsh
+# tabtab source for slss package
+# uninstall by removing these lines or running `tabtab uninstall slss`
+[[ -f /Users/andrew-antolino/git/school/backend/services/organisation-invitation/node_modules/tabtab/.completions/slss.zsh ]] && . /Users/andrew-antolino/git/school/backend/services/organisation-invitation/node_modules/tabtab/.completions/slss.zsh
+alias config='/usr/bin/git --git-dir=/Users/andrew-antolino/.cfg/ --work-tree=/Users/andrew-antolino'
