@@ -8,17 +8,10 @@ export ZSH="/Users/andrew-antolino/.oh-my-zsh"
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-#ZSH_THEME="hyperzsh"
 ZSH_THEME="spaceship"
 
 # Edit path elements
-SPACESHIP_AWS_SHOW=false
-
-# Set list of themes to pick from when loading at random
-# Setting this variable when ZSH_THEME=random will cause zsh to load
-# a theme from this variable instead of looking in ~/.oh-my-zsh/themes/
-# If set to an empty array, this variable will have no effect.
-# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
+# SPACESHIP_AWS_SHOW=false
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -95,11 +88,6 @@ source $ZSH/oh-my-zsh.sh
 # ssh
 # export SSH_KEY_PATH="~/.ssh/rsa_id"
 
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-#
 # Aliases
 alias py="python3"
 alias k="kubectl"
@@ -112,7 +100,6 @@ alias aws-login="aws-mfa \
 --duration 28800 \
 --device arn:aws:iam::244548702244:mfa/andrew-antolino@pluralsight.com \
 --profile 471783780157_AdminPermissionSet"
-alias aws-sso=~/aws-sso-credentials/awssso
 
 source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
@@ -133,21 +120,20 @@ export NODE_EXTRA_CA_CERTS=$CERTIFICATE_BUNDLE
 export AWS_CA_BUNDLE=$CERTIFICATE_BUNDLE
 export SSL_CERT_FILE=$CERTIFICATE_BUNDLE
 
-## Use AWS SSO to create daily credentials for shell sessions
-sso () {
-  SSO_TOOL_PATH=~/aws-sso-credentials/awssso
-  if [ "$1" = "login" ]; then
-    command $SSO_TOOL_PATH --all --login
-  else
-    command $SSO_TOOL_PATH --profile $1 --use-default
-    export AWS_PROFILE=$1
-    export AWS_DEFAULT_PROFILE=$1
-  fi
-}
-
 # Global AWS Config
 export AWS_REGION=us-east-1
 export AWS_DEFAULT_REGION=us-east-1
+# Ensure AWS SDK uses config for profile region etc
+export AWS_SDK_LOAD_CONFIG=1
+
+# Granted
+# Alias to switch AWS profile and populate temporary credentials
+alias awssso='source assume $1 --export'
+
+# Function to assume and open AWS Profile in the console
+aws-console() {
+	assume -c $1 -s $2;
+}
 
 # tabtab source for serverless package
 # uninstall by removing these lines or running `tabtab uninstall serverless`
@@ -158,4 +144,3 @@ export AWS_DEFAULT_REGION=us-east-1
 # tabtab source for slss package
 # uninstall by removing these lines or running `tabtab uninstall slss`
 [[ -f /Users/andrew-antolino/git/school/backend/services/organisation-invitation/node_modules/tabtab/.completions/slss.zsh ]] && . /Users/andrew-antolino/git/school/backend/services/organisation-invitation/node_modules/tabtab/.completions/slss.zsh
-alias config='/usr/bin/git --git-dir=/Users/andrew-antolino/.cfg/ --work-tree=/Users/andrew-antolino'
