@@ -96,29 +96,19 @@ alias kc="kubectx"
 alias kns="kubens"
 alias ll="ls -l"
 alias la="ls -la"
-alias aws-login="aws-mfa \
---duration 28800 \
---device arn:aws:iam::244548702244:mfa/andrew-antolino@pluralsight.com \
---profile 471783780157_AdminPermissionSet"
 
 source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-eval "$(direnv hook zsh)"
+# eval "$(direnv hook zsh)"
 
-. $HOME/.asdf/asdf.sh
+# . $HOME/.asdf/asdf.sh
 
-. $HOME/.asdf/completions/asdf.bash
+# . $HOME/.asdf/completions/asdf.bash
 
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 PATH=~/.acg/bin/:$PATH
 PATH=~/.local/bin/:$PATH
 
-export CERTIFICATE_BUNDLE=$HOME/Downloads/zscaler_root_ca_bundle.pem
-export REQUESTS_CA_BUNDLE=$CERTIFICATE_BUNDLE
-export CURL_CA_BUNDLE=$CERTIFICATE_BUNDLE
-export NODE_EXTRA_CA_CERTS=$CERTIFICATE_BUNDLE
-export AWS_CA_BUNDLE=$CERTIFICATE_BUNDLE
-export SSL_CERT_FILE=$CERTIFICATE_BUNDLE
 
 # Global AWS Config
 export AWS_REGION=us-east-1
@@ -144,3 +134,33 @@ aws-console() {
 # tabtab source for slss package
 # uninstall by removing these lines or running `tabtab uninstall slss`
 [[ -f /Users/andrew-antolino/git/school/backend/services/organisation-invitation/node_modules/tabtab/.completions/slss.zsh ]] && . /Users/andrew-antolino/git/school/backend/services/organisation-invitation/node_modules/tabtab/.completions/slss.zsh
+
+
+
+
+
+########################################
+## New, simplified .zshrc from here down ##
+########################################
+
+#############
+## ALIASES ##
+#############
+
+alias ll="ls -l"
+alias la="ls -la"
+alias gc="git checkout"
+alias gb="git checkout -b"
+alias ga="git add"
+alias gcm="git commit -m"
+alias grb="git rebase"
+alias gm="git merge"
+
+# Autocomplete
+autoload -U compinit; compinit
+_comp_options+=(globdots) # With hidden files
+source /my/path/to/zsh/completion.zsh
+
+# Granted - SSO-compatible AWS CLI Login
+# Alias to switch AWS profile and populate temporary credentials
+alias awssso='source assume $1 --export'
