@@ -1,122 +1,38 @@
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/bin:/usr/local/bin:$PATH
 
-# Path to your oh-my-zsh installation.
-export ZSH="/Users/andrew-antolino/.oh-my-zsh"
+#################
+## ZSH PLUGINS ##
+#################
 
-# Set name of the theme to load --- if set to "random", it will
-# load a random theme each time oh-my-zsh is loaded, in which case,
-# to know which specific one was loaded, run: echo $RANDOM_THEME
-# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="spaceship"
+PLUGINS_DIR="$HOME/.zsh/plugins"
 
-# Edit path elements
-# SPACESHIP_AWS_SHOW=false
+## AUTOCOMPLETE ##
+# Append completions to fpath
+fpath=(${ASDF_DIR}/completions $fpath)
+# Initialise completions with ZSH's compinit
+autoload -Uz compinit && compinit
 
-# Uncomment the following line to use case-sensitive completion.
-# CASE_SENSITIVE="true"
+## SYNTAX HIGHLIGHTING ##
+source $PLUGINS_DIR/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-# Uncomment the following line to use hyphen-insensitive completion.
-# Case-sensitive completion must be off. _ and - will be interchangeable.
-# HYPHEN_INSENSITIVE="true"
+############
+## EDITOR ##
+############
+if [[ -n $SSH_CONNECTION ]]; then
+  export EDITOR='vim'
+else
+  export EDITOR='code'
+fi
 
-# Uncomment the following line to disable bi-weekly auto-update checks.
-# DISABLE_AUTO_UPDATE="true"
-
-# Uncomment the following line to change how often to auto-update (in days).
-# export UPDATE_ZSH_DAYS=13
-
-# Uncomment the following line to disable colors in ls.
-# DISABLE_LS_COLORS="true"
-
-# Uncomment the following line to disable auto-setting terminal title.
-# DISABLE_AUTO_TITLE="true"
-
-# Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
-
-# Uncomment the following line to display red dots whilst waiting for completion.
-# COMPLETION_WAITING_DOTS="true"
-
-# Uncomment the following line if you want to disable marking untracked files
-# under VCS as dirty. This makes repository status check for large repositories
-# much, much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
-
-# Uncomment the following line if you want to change the command execution time
-# stamp shown in the history command output.
-# You can set one of the optional three formats:
-# "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-# or set a custom format using the strftime function format specifications,
-# see 'man strftime' for details.
-# HIST_STAMPS="mm/dd/yyyy"
-
-# Would you like to use another custom folder than $ZSH/custom?
-ZSH_CUSTOM=/Users/andrew-antolino/.oh-my-zsh/custom
-
-# Which plugins would you like to load?
-# Standard plugins can be found in ~/.oh-my-zsh/plugins/*
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
-plugins=(
-  git
-  node
-  npm
-  kubectl
-)
-
-source $ZSH/oh-my-zsh.sh
-
-# User configuration
-
-# export MANPATH="/usr/local/man:$MANPATH"
-
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
-
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
-
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
-
-# ssh
-# export SSH_KEY_PATH="~/.ssh/rsa_id"
-
-# Aliases
-alias py="python3"
-alias k="kubectl"
-# alias kcd="kubectl config set-context $(kubectl config current-context) --namespace "
-alias kc="kubectx"
-alias kns="kubens"
-alias ll="ls -l"
-alias la="ls -la"
-
-source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
-# eval "$(direnv hook zsh)"
-
-# . $HOME/.asdf/asdf.sh
-
-# . $HOME/.asdf/completions/asdf.bash
-
-export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
-PATH=~/.acg/bin/:$PATH
-PATH=~/.local/bin/:$PATH
-
-
-# Global AWS Config
+#########
+## AWS ##
+#########
 export AWS_REGION=us-east-1
 export AWS_DEFAULT_REGION=us-east-1
 # Ensure AWS SDK uses config for profile region etc
 export AWS_SDK_LOAD_CONFIG=1
 
-# Granted
 # Alias to switch AWS profile and populate temporary credentials
 alias awssso='source assume $1 --export'
 
@@ -125,42 +41,7 @@ aws-console() {
 	assume -c $1 -s $2;
 }
 
-# tabtab source for serverless package
-# uninstall by removing these lines or running `tabtab uninstall serverless`
-[[ -f /Users/andrew-antolino/git/school/ui-fragments/study-plan-ui/node_modules/tabtab/.completions/serverless.zsh ]] && . /Users/andrew-antolino/git/school/ui-fragments/study-plan-ui/node_modules/tabtab/.completions/serverless.zsh
-# tabtab source for sls package
-# uninstall by removing these lines or running `tabtab uninstall sls`
-[[ -f /Users/andrew-antolino/git/school/ui-fragments/study-plan-ui/node_modules/tabtab/.completions/sls.zsh ]] && . /Users/andrew-antolino/git/school/ui-fragments/study-plan-ui/node_modules/tabtab/.completions/sls.zsh
-# tabtab source for slss package
-# uninstall by removing these lines or running `tabtab uninstall slss`
-[[ -f /Users/andrew-antolino/git/school/backend/services/organisation-invitation/node_modules/tabtab/.completions/slss.zsh ]] && . /Users/andrew-antolino/git/school/backend/services/organisation-invitation/node_modules/tabtab/.completions/slss.zsh
-
-
-
-
-
-########################################
-## New, simplified .zshrc from here down ##
-########################################
-
-#############
-## ALIASES ##
-#############
-
-alias ll="ls -l"
-alias la="ls -la"
-alias gc="git checkout"
-alias gb="git checkout -b"
-alias ga="git add"
-alias gcm="git commit -m"
-alias grb="git rebase"
-alias gm="git merge"
-
-# Autocomplete
-autoload -U compinit; compinit
-_comp_options+=(globdots) # With hidden files
-source /my/path/to/zsh/completion.zsh
-
-# Granted - SSO-compatible AWS CLI Login
-# Alias to switch AWS profile and populate temporary credentials
-alias awssso='source assume $1 --export'
+##########
+## ASDF ##
+##########
+. "$HOME/.asdf/asdf.sh"
