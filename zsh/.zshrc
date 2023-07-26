@@ -5,9 +5,11 @@ export PATH=$HOME/bin:/usr/local/bin:$PATH
 ## ZSH PLUGINS ##
 #################
 
-PLUGINS_DIR="$HOME/.zsh/plugins"
+ZSH_HOME="$HOME/.zsh"
+PLUGINS_DIR="$ZSH_HOME/plugins"
+PROMPT_DIR="$ZSH_HOME/prompt"
 
-## AUTOCOMPLETE ##
+## AUTOCOMPLETE $$
 # Append completions to fpath
 fpath=(${ASDF_DIR}/completions $fpath)
 # Initialise completions with ZSH's compinit
@@ -15,6 +17,15 @@ autoload -Uz compinit && compinit
 
 ## SYNTAX HIGHLIGHTING ##
 source $PLUGINS_DIR/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+############
+## PROMPT ##
+############
+
+fpath+=($HOME/.zsh/prompt/pure)
+autoload -U promptinit; promptinit
+prompt pure
+
 #############
 ## ALIASES ##
 #############
@@ -60,3 +71,8 @@ aws-console() {
 ## ASDF ##
 ##########
 . "$HOME/.asdf/asdf.sh"
+setopt extended_history
+HISTFILE=~/.zsh_history
+SAVEHIST=100000
+TIMESTAMP=$(date "+%Y-%m-%d %H:%M:%S")
+HIST_STAMPS="${TIMESTAMP}"
