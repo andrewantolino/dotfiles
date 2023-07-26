@@ -15,6 +15,21 @@ autoload -Uz compinit && compinit
 
 ## SYNTAX HIGHLIGHTING ##
 source $PLUGINS_DIR/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+#############
+## ALIASES ##
+#############
+
+alias ll="ls -l"
+alias la="ls -la"
+alias gc="git checkout"
+alias gb="git checkout -b"
+alias ga="git add"
+alias gcm="git commit -m"
+alias grb="git rebase"
+alias gm="git merge"
+alias gwa="git worktree add"
+alias gwr="git worktree remove"
+alias gwl="git worktree list"
 
 ############
 ## EDITOR ##
