@@ -33,7 +33,8 @@ prompt pure
 alias ll="ls -l"
 alias la="ls -la"
 alias gc="git checkout"
-alias gb="git checkout -b"
+alias gcb="git checkout -b"
+alias gb="git branch"
 alias ga="git add"
 alias gcm="git commit -m"
 alias grb="git rebase"
@@ -41,6 +42,24 @@ alias gm="git merge"
 alias gwa="git worktree add"
 alias gwr="git worktree remove"
 alias gwl="git worktree list"
+
+# Create worktree with new branch
+
+function gwab {
+  # Should be run from `main` branch or better yet bare repo
+  # Validate input
+  #   $1 = Worktree dir name
+  #   $2 = Branch name
+  # Create new branch but don't checkout
+  # Then create new worktree directory based on the new branch
+  local worktree_dir=$1
+  local new_branch=$2
+  # Create branch but don't checkout
+  gb $new_branch
+
+  # Create worktree based on branch
+  gwa $worktree_dir $new_branch
+}
 
 ############
 ## EDITOR ##
