@@ -7,7 +7,7 @@ export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 ZSH_HOME="$HOME/.zsh"
 PLUGINS_DIR="$ZSH_HOME/plugins"
-PROMPT_DIR="$ZSH_HOME/prompt"
+# PROMPT_DIR="$ZSH_HOME/prompt"
 
 ## AUTOCOMPLETE $$
 # Append completions to fpath
@@ -22,9 +22,33 @@ source $PLUGINS_DIR/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 ## PROMPT ##
 ############
 
-fpath+=($HOME/.zsh/prompt/pure)
-autoload -U promptinit; promptinit
-prompt pure
+autoload -Uz vcs_info
+zstyle ':vcs_info:*' enable git
+precmd_vcs_info() { 
+  vcs_info
+  GIT_PROMPT_INFO=
+  # If in a git repo, show info
+  if [[ ! -z ${vcs_info_msg_0_} ]]; then
+    # {gitIcon} {gitBranch} {branchStatus}
+    # TODO
+    # - Dirty tree indicator (*)
+    #  - Does this need to cater for unstaged and staged changes?
+    # - Changes to push/pull indicator (up/down arrows: )
+    GIT_PROMPT_INFO="%F{green}$(echo '\ue725') ${vcs_info_msg_0_}%f"
+  fi
+}
+precmd_functions+=( precmd_vcs_info )
+setopt prompt_subst
+
+AWS_PROMPT_INFO=
+if [[ ! -z $AWS_PROFILE ]]; then
+  AWS_PROMPT_INFO="%F{yellow}$(echo '\ue268') ${AWS_PROFILE}%f "
+fi
+
+# {workingDir} {awsProfile}
+PROMPT='%F{blue}%3~%f ${AWS_PROMPT_INFO}%(?.%F{magenta}%(!.#.❯)%f .%F{red}%(!.#.❯)%f '
+RPROMPT='${GIT_PROMPT_INFO}'
+zstyle ':vcs_info:git:*' formats '%b'
 
 #############
 ## ALIASES ##
