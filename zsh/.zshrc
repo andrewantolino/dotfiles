@@ -95,3 +95,8 @@ HISTFILE=~/.zsh_history
 SAVEHIST=100000
 TIMESTAMP=$(date "+%Y-%m-%d %H:%M:%S")
 HIST_STAMPS="${TIMESTAMP}"
+
+############
+## DIRENV ##
+############
+eval "$(direnv hook zsh)"
