@@ -50,14 +50,16 @@ function gwab {
   # Validate input
   #   $1 = Worktree dir name
   #   $2 = Branch name
-  # Create new branch but don't checkout
-  # Then create new worktree directory based on the new branch
   local worktree_dir=$1
   local new_branch=$2
-  # Create branch but don't checkout
+  if [ $# -eq 0 ] || [ -z $2 ]
+    then
+      echo "Usage: $0 directory branch"
+      return 1
+  fi
+  
+  # Create new branch but don't checkout
   gb $new_branch
-
-  # Create worktree based on branch
   gwa $worktree_dir $new_branch
 }
 
