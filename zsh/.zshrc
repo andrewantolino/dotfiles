@@ -11,7 +11,7 @@ PLUGINS_DIR="$ZSH_HOME/plugins"
 
 ## AUTOCOMPLETE $$
 # Append completions to fpath
-fpath=(${ASDF_DIR}/completions $fpath)
+# fpath=(${ASDF_DIR}/completions $fpath)
 # Initialise completions with ZSH's compinit
 autoload -Uz compinit && compinit
 
@@ -66,11 +66,13 @@ alias gm="git merge"
 alias gwa="git worktree add"
 alias gwr="git worktree remove"
 alias gwl="git worktree list"
+alias gwp="git worktree prune"
+alias glog="git log --all --decorate --oneline --graph"
 
 # Create worktree with new branch
 
 function gwab {
-  # Should be run from `main` branch or better yet bare repo
+  # Should be run from `main` branch
   # Validate input
   #   $1 = Worktree dir name
   #   $2 = Branch name
@@ -115,7 +117,8 @@ aws-console() {
 ##########
 ## ASDF ##
 ##########
-. "$HOME/.asdf/asdf.sh"
+# . "$HOME/.asdf/asdf.sh"
+
 setopt extended_history
 HISTFILE=~/.zsh_history
 SAVEHIST=100000
@@ -126,3 +129,26 @@ HIST_STAMPS="${TIMESTAMP}"
 ## DIRENV ##
 ############
 eval "$(direnv hook zsh)"
+
+############
+### RUBY ###
+############
+eval "$(rbenv init - zsh)"
+
+# pnpm
+export PNPM_HOME="/Users/andrew-antolino/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
+
+############
+### MISE ###
+############
+eval "$(mise activate zsh)"
+
+############
+### JAVA ###
+############
+export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
