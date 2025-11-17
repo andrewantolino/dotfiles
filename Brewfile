@@ -2,7 +2,6 @@
 # Taps
 # -----------------------------
 tap "common-fate/granted"
-tap "homebrew/cask-fonts"
 tap "oven-sh/bun"
 
 # -----------------------------
