@@ -10,6 +10,7 @@ tap "oven-sh/bun"
 brew "act"             # Run your GitHub Actions locally
 brew "coreutils"       # GNU File, Shell, and Text utilities
 brew "direnv"          # Load/unload environment variables based on $PWD
+brew "docker-compose"  # Define and run multi-container applications with Docker
 brew "fzf"             # Command-line fuzzy finder
 brew "gnutls"          # GNU Transport Layer Security (TLS) Library
 brew "gnupg"           # GNU Pretty Good Privacy (PGP) package
