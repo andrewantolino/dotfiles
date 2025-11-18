@@ -30,12 +30,13 @@ brew "zsh"             # UNIX shell
 brew "common-fate/granted/granted"  # Access cloud features (check tap path)
 
 # -----------------------------
-# GUI apps (casks)
+# Casks (GUI apps, fonts)
 # -----------------------------
 cask "docker"
 cask "iterm2"
 cask "orbstack"
 cask "spotify"
+cask "font-fira-code-nerd-font"
 
 # -----------------------------
 # VS Code extensions
