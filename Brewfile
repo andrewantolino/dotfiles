@@ -27,6 +27,10 @@ brew "stow"            # Organize software neatly under a single directory tree
 brew "tree"            # Display directories as trees
 brew "wget"            # Internet file retriever
 brew "zsh"             # UNIX shell
+brew "zsh-syntax-highlighting"  # Fish shell like syntax highlighting for zsh
+brew "zsh-autosuggestions"     # Fish-like autosuggestions
+brew "zsh-completions"          # Additional completion definitions
+brew "zsh-history-substring-search"  # Fish-like history search
 brew "common-fate/granted/granted"  # Access cloud features (check tap path)
 
 # -----------------------------

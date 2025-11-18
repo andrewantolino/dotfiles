@@ -1,22 +1,37 @@
 # If you come from bash you might have to change your $PATH.
 export PATH=$HOME/bin:/usr/local/bin:$PATH
+HOMEBREW_PREFIX=$(brew --prefix 2>/dev/null || echo "/opt/homebrew")
 
 #################
 ## ZSH PLUGINS ##
 #################
 
-ZSH_HOME="$HOME/.zsh"
-PLUGINS_DIR="$ZSH_HOME/plugins"
-# PROMPT_DIR="$ZSH_HOME/prompt"
-
-## AUTOCOMPLETE $$
-# Append completions to fpath
-# fpath=(${ASDF_DIR}/completions $fpath)
-# Initialise completions with ZSH's compinit
+## AUTOCOMPLETE ##
+# Add zsh-completions to fpath
+if type brew &>/dev/null; then
+  FPATH="$HOMEBREW_PREFIX/share/zsh-completions:$FPATH"
+fi
 autoload -Uz compinit && compinit
 
+## AUTOSUGGESTIONS ##
+if [[ -f $HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]]; then
+  source $HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+  ZSH_AUTOSUGGEST_STRATEGY=(history completion)
+fi
+
 ## SYNTAX HIGHLIGHTING ##
-source $PLUGINS_DIR/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+# Must be sourced at the end
+if [[ -f $HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
+  source $HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+fi
+
+## HISTORY SUBSTRING SEARCH ##
+if [[ -f $HOMEBREW_PREFIX/share/zsh-history-substring-search/zsh-history-substring-search.zsh ]]; then
+  source $HOMEBREW_PREFIX/share/zsh-history-substring-search/zsh-history-substring-search.zsh
+  # Bind up/down arrow keys
+  bindkey '^[[A' history-substring-search-up
+  bindkey '^[[B' history-substring-search-down
+fi
 
 ############
 ## PROMPT ##
