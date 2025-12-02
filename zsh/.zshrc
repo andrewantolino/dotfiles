@@ -129,11 +129,6 @@ aws-console() {
 	assume -c $1 -s $2;
 }
 
-##########
-## ASDF ##
-##########
-# . "$HOME/.asdf/asdf.sh"
-
 setopt extended_history
 HISTFILE=~/.zsh_history
 SAVEHIST=100000
