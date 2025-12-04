@@ -7,32 +7,33 @@ tap "oven-sh/bun"
 # -----------------------------
 # CLI tools
 # -----------------------------
-brew "act"             # Run your GitHub Actions locally
-brew "coreutils"       # GNU File, Shell, and Text utilities
-brew "direnv"          # Load/unload environment variables based on $PWD
-brew "docker-compose"  # Define and run multi-container applications with Docker
-brew "fzf"             # Command-line fuzzy finder
-brew "gnutls"          # GNU Transport Layer Security (TLS) Library
-brew "gnupg"           # GNU Pretty Good Privacy (PGP) package
-brew "go"              # Open source programming language
-brew "helm"            # Kubernetes package manager
-brew "jq"              # Lightweight command-line JSON processor
-brew "mise"            # Polyglot runtime manager (asdf rust clone)
-brew "neovim"          # Ambitious Vim-fork focused on extensibility
-brew "nss"             # Libraries for security-enabled client/server apps
-brew "openjdk"         # Development kit for Java
-brew "rbenv"           # Ruby version manager
-brew "ruby"            # Powerful, clean, object-oriented scripting language
-brew "snyk-cli"        # Scans and monitors projects for security vulnerabilities
-brew "stow"            # Organize software neatly under a single directory tree
-brew "tree"            # Display directories as trees
-brew "wget"            # Internet file retriever
-brew "zsh"             # UNIX shell
-brew "zsh-syntax-highlighting"  # Fish shell like syntax highlighting for zsh
-brew "zsh-autosuggestions"     # Fish-like autosuggestions
-brew "zsh-completions"          # Additional completion definitions
+brew "act"                           # Run your GitHub Actions locally
+brew "awscli"                        # Official Amazon AWS command-line interface
+brew "common-fate/granted/granted"   # Access cloud features (check tap path)
+brew "coreutils"                     # GNU File, Shell, and Text utilities
+brew "direnv"                        # Load/unload environment variables based on $PWD
+brew "docker-compose"                # Define and run multi-container applications with Docker
+brew "fzf"                           # Command-line fuzzy finder
+brew "gnutls"                        # GNU Transport Layer Security (TLS) Library
+brew "gnupg"                         # GNU Pretty Good Privacy (PGP) package
+brew "go"                            # Open source programming language
+brew "helm"                          # Kubernetes package manager
+brew "jq"                            # Lightweight command-line JSON processor
+brew "mise"                          # Polyglot runtime manager (asdf rust clone)
+brew "neovim"                        # Ambitious Vim-fork focused on extensibility
+brew "nss"                           # Libraries for security-enabled client/server apps
+brew "openjdk"                       # Development kit for Java
+brew "rbenv"                         # Ruby version manager
+brew "ruby"                          # Powerful, clean, object-oriented scripting language
+brew "snyk-cli"                      # Scans and monitors projects for security vulnerabilities
+brew "stow"                          # Organize software neatly under a single directory tree
+brew "tree"                          # Display directories as trees
+brew "wget"                          # Internet file retriever
+brew "zsh"                           # UNIX shell
+brew "zsh-syntax-highlighting"       # Fish shell like syntax highlighting for zsh
+brew "zsh-autosuggestions"           # Fish-like autosuggestions
+brew "zsh-completions"               # Additional completion definitions
 brew "zsh-history-substring-search"  # Fish-like history search
-brew "common-fate/granted/granted"  # Access cloud features (check tap path)
 
 # -----------------------------
 # Casks (GUI apps, fonts)
